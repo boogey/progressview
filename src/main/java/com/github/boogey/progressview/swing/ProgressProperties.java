@@ -51,5 +51,10 @@ public enum ProgressProperties
     /**
      * Cancel property
      */
-    CANCEL_PROPERTY;
+    CANCEL_PROPERTY,
+
+    /**
+     * Model has changed proptery
+     */
+    MODEL_PROPERTY;
 }
