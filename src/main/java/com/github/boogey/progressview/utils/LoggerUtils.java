@@ -16,10 +16,10 @@
 package com.github.boogey.progressview.utils;
 
 import java.io.File;
+import java.net.URL;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.lf5.LogLevel;
 
 /**
@@ -69,12 +69,24 @@ public final class LoggerUtils
         File location = new File( configLocation );
         if ( null != configLocation && location.exists() )
         {
-            PropertyConfigurator.configureAndWatch( configLocation );
+            loadFromResource( configLocation );
         }
         else
         {
             BasicConfigurator.configure();
         }
+    }
+
+    /**
+     * Load a log4j configuration from a specify location with the {@link ClassLoader} and the resource management.
+     * 
+     * @param configLocation <br>
+     *            a resource that will be load and configuration the log4j framework.
+     */
+    public static void loadFromResource( final String configLocation )
+    {
+        URL configURL = ClassLoader.getSystemResource( configLocation );
+        System.setProperty( "log4j.configuration", configURL.getProtocol() + ":" + configURL.getFile() );
     }
 
     /**
