@@ -57,24 +57,29 @@ public class WindowPropertyListener
     @Override
     public void propertyChange( final PropertyChangeEvent evt )
     {
-        ProgressProperties property = ProgressProperties.valueOf( evt.getPropertyName() );
-
-        if ( property == ProgressProperties.CANCEL_PROPERTY )
+        if ( String.valueOf( ProgressProperties.CANCEL_PROPERTY ).equals( evt.getPropertyName() ) )
         {
             DateTime startWaiting = new DateTime();
             DateTime currentTime = new DateTime();
-            Interval waitInterval = new Interval( startWaiting, startWaiting.plusSeconds( 5 ) );
+            Interval waitInterval = new Interval( startWaiting, startWaiting.plusSeconds( 1 ) );
 
             if ( null != interruptThreadGroup )
             {
-                interruptThreadGroup.interrupt();
                 while ( 0 == interruptThreadGroup.activeCount() || waitInterval.isAfter( currentTime ) )
                 {
+                    interruptThreadGroup.interrupt();
                     currentTime = new DateTime();
                 }
             }
 
             closingWindow.dispose();
+        }
+        else if ( "state".equals( evt.getPropertyName() ) )
+        {
+            if ( 0 == interruptThreadGroup.activeCount() )
+            {
+                closingWindow.dispose();
+            }
         }
     }
 }

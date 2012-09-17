@@ -46,6 +46,8 @@ public class JProgressPanel
 
     private ProgressPropertyListener progressListener;
 
+    private MessagePropertyListener messageListener;
+
     /**
      * Default constructor to instance an object of {@link JProgressPanel}.
      */
@@ -90,11 +92,15 @@ public class JProgressPanel
             if ( null != this.model )
             {
                 this.model.removePropertyChangeListener( progressListener );
+                this.model.removePropertyChangeListener( messageListener );
             }
             progressListener = new ProgressPropertyListener( progressBar, model );
+            messageListener = new MessagePropertyListener( messageLabel );
 
             this.model = model;
             this.model.addPropertyChangeListener( progressListener );
+            this.model.addPropertyChangeListener( messageListener );
+
             progressBar.setMinimum( model.getMinimum() );
             progressBar.setMaximum( model.getMaximum() );
             progressBar.setIndeterminate( model.isIndeterminate() );
