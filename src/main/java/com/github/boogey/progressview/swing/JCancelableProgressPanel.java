@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import com.github.boogey.progressview.model.CancelableThreadGroup;
 import com.github.boogey.progressview.model.ICancelableProgressRO;
 import com.github.boogey.progressview.model.IProgressModelRO;
+import com.github.boogey.progressview.utils.LanguageAccessor;
 
 /**
  * This class represented an cancelable progress panel and contains a {@link JProgressPanel}.
@@ -69,7 +70,7 @@ public class JCancelableProgressPanel
     protected void initObjects()
     {
         setLayout( new GridBagLayout() );
-        cancelButton = new JButton( "Cancel" );
+        cancelButton = new JButton( LanguageAccessor.getString("ProgressView.cancelbutton") ); //$NON-NLS-1$
         model = new CancelableThreadGroup( null );
         progessPanel = new JProgressPanel();
         positionElements();

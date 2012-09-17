@@ -286,7 +286,7 @@ public abstract class AbstractProgressModel
                 checkVariable = min <= numberValue && numberValue <= max;
                 throwMessage =
                     String.format( "value (%d) is less than the current min value (%d) or greater than the current max value (%d)",
-                                   Integer.valueOf( numberValue ), Integer.valueOf( max ) );
+                                   Integer.valueOf( numberValue ), Integer.valueOf( min ), Integer.valueOf( max ) );
                 break;
             default:
                 checkVariable = false;
