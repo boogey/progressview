@@ -15,12 +15,15 @@
  */
 package com.github.boogey.progressview.model;
 
+import com.jgoodies.common.bean.ObservableBean2;
+
 /**
  * This interface is a read-only interface with cancelable option.
  * 
  * @author Karsten Schulz <a href="mailto:lennylinux.ks@googlmail.com">(lennylinux.ks@googlmail.com)</a>
  */
 public interface ICancelableProgressRO
+    extends ObservableBean2
 {
 
     /**
