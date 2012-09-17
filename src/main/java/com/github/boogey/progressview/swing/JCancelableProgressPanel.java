@@ -16,7 +16,9 @@
 package com.github.boogey.progressview.swing;
 
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
@@ -66,6 +68,7 @@ public class JCancelableProgressPanel
 
     protected void initObjects()
     {
+        setLayout( new GridBagLayout() );
         cancelButton = new JButton( "Cancel" );
         model = new CancelableThreadGroup( null );
         progessPanel = new JProgressPanel();
@@ -81,7 +84,7 @@ public class JCancelableProgressPanel
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridwidth = 3;
         constraints.weightx = 1.0;
-        constraints.weighty = 0.0;
+        constraints.weighty = 1.0;
 
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -149,5 +152,27 @@ public class JCancelableProgressPanel
     public IProgressModelRO getProgressModel()
     {
         return progessPanel.getModel();
+    }
+
+    /**
+     * Add an {@link ActionListener} to the {@link JButton} for the cancel option
+     * 
+     * @param al <br>
+     *            an object reference of an {@link ActionListener}.
+     */
+    public void addCancelButtonListener( ActionListener al )
+    {
+        cancelButton.addActionListener( al );
+    }
+
+    /**
+     * Remove an existing {@link ActionListener} from the {@link JButton} for the cancel option
+     * 
+     * @param al <br>
+     *            an existing object reference to an {@link ActionListener}.
+     */
+    public void removeCancelButtonListener( ActionListener al )
+    {
+        cancelButton.removeActionListener( al );
     }
 }
