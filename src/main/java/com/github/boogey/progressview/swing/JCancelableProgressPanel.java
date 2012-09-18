@@ -27,7 +27,7 @@ import javax.swing.JPanel;
 import com.github.boogey.progressview.model.CancelableSwingWorkers;
 import com.github.boogey.progressview.model.ICancelableProgressRO;
 import com.github.boogey.progressview.model.IProgressModelRO;
-import com.github.boogey.progressview.utils.LanguageAccessor;
+import com.github.boogey.progressview.util.LanguageAccessor;
 
 /**
  * This class represented an cancelable progress panel and contains a {@link JProgressPanel}.
