@@ -17,11 +17,10 @@ package com.github.boogey.progressview.swing;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 import javax.swing.JDialog;
-
-import org.joda.time.DateTime;
-import org.joda.time.Interval;
+import javax.swing.SwingWorker;
 
 /**
  * This {@link PropertyChangeListener} is the execute element to interrupt a {@link ThreadGroup} and dispose the
@@ -34,7 +33,7 @@ public class WindowPropertyListener
 {
     private final JDialog closingWindow;
 
-    private final ThreadGroup interruptThreadGroup;
+    private final List<SwingWorker<?, ?>> interruptSwingWorkers;
 
     /**
      * This constructor need the {@link JDialog} to dispose and the {@link ThreadGroup} to interrupt.
@@ -44,10 +43,10 @@ public class WindowPropertyListener
      * @param interruptThreadGroup <br>
      *            the to interrupt {@link ThreadGroup}.
      */
-    public WindowPropertyListener( final JDialog closingDialog, final ThreadGroup interruptThreadGroup )
+    public WindowPropertyListener( final JDialog closingDialog, final List<SwingWorker<?, ?>> interruptThreadGroup )
     {
         closingWindow = closingDialog;
-        this.interruptThreadGroup = interruptThreadGroup;
+        interruptSwingWorkers = interruptThreadGroup;
     }
 
     /*
@@ -57,20 +56,13 @@ public class WindowPropertyListener
     @Override
     public void propertyChange( final PropertyChangeEvent evt )
     {
-        ProgressProperties property = ProgressProperties.valueOf( evt.getPropertyName() );
-
-        if ( property == ProgressProperties.CANCEL_PROPERTY )
+        if ( String.valueOf( ProgressProperties.CANCEL_PROPERTY ).equals( evt.getPropertyName() ) )
         {
-            DateTime startWaiting = new DateTime();
-            DateTime currentTime = new DateTime();
-            Interval waitInterval = new Interval( startWaiting, startWaiting.plusSeconds( 5 ) );
-
-            if ( null != interruptThreadGroup )
+            if ( null != interruptSwingWorkers )
             {
-                interruptThreadGroup.interrupt();
-                while ( 0 == interruptThreadGroup.activeCount() || waitInterval.isAfter( currentTime ) )
+                for ( SwingWorker<?, ?> worker : interruptSwingWorkers )
                 {
-                    currentTime = new DateTime();
+                    worker.cancel( true );
                 }
             }
 
