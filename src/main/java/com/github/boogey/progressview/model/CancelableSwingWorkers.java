@@ -15,19 +15,23 @@
  */
 package com.github.boogey.progressview.model;
 
+import java.util.List;
+
+import javax.swing.SwingWorker;
+
 /**
  * This default class of the {@link AbstractCancelableProgress} contains a {@link ThreadGroup} which can be handle. For
  * example it can be interrupt or so.
  * 
  * @author Karsten Schulz <a href="mailto:lennylinux.ks@googlmail.com">(lennylinux.ks@googlmail.com)</a>
  */
-public class CancelableThreadGroup
+public class CancelableSwingWorkers
     extends AbstractCancelableProgress
 {
 
     private static final long serialVersionUID = -2430853713227256185L;
 
-    private final ThreadGroup runableThreadGroup;
+    private final List<SwingWorker<?, ?>> runableThreadGroup;
 
     /**
      * This constructor is the only one to instance an object of this class. Its need a reference of an object from
@@ -36,7 +40,7 @@ public class CancelableThreadGroup
      * @param threadGroup <br>
      *            an object reference of an {@link ThreadGroup}.
      */
-    public CancelableThreadGroup( ThreadGroup threadGroup )
+    public CancelableSwingWorkers( List<SwingWorker<?, ?>> threadGroup )
     {
         runableThreadGroup = threadGroup;
     }
@@ -46,7 +50,7 @@ public class CancelableThreadGroup
      * 
      * @return the {@link ThreadGroup}
      */
-    public ThreadGroup getRunableThreadGroup()
+    public List<SwingWorker<?, ?>> getRunableThreadGroup()
     {
         return runableThreadGroup;
     }
