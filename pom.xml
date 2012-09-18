@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.boogey</groupId>
 	<artifactId>progressview</artifactId>
-	<version>0.1</version>
 	<name>progressview</name>
 	<licenses>
 		<license>
@@ -129,4 +128,5 @@
 			<version>3.1</version>
 		</dependency>
 	</dependencies>
+	<version>0.5</version>
 </project>
